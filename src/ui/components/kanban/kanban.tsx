@@ -2,6 +2,8 @@ import { DndContext, DragEndEvent, MouseSensor, TouchSensor, useSensor, useSenso
 import KanbanColumn from "./kanban.column";
 import { kanbanColumn } from "./model"
 import { useEffect, useState } from "react";
+import KanbanFilter from "./kanban.filter";
+import { useModal } from "../modal/modal-context";
 
 
 
@@ -75,13 +77,30 @@ export default function KanbanBoard() {
 
   console.log(columns);
 
+  const { openModal, closeModal } = useModal();
+
+  function DemoContent({ message, onAction, onClose }: { message: string; onAction?: () => void; onClose?: () => void }) {
+    return (
+      <div className="flex flex-col gap-2">
+        <h2 className="text-lg font-bold">Demo Modal</h2>
+        <p>{message}</p>
+        <div className="flex gap-2 mt-2">
+          <button onClick={() => { console.log('modal action'); onAction?.(); }} className="px-2 py-1 bg-blue-500 text-white rounded">Action</button>
+          <button onClick={() => onClose?.()} className="px-2 py-1 border rounded">Close</button>
+        </div>
+      </div>
+    )
+  }
+
   if (!isMounted) {
     return (<div>Loading...</div>);
   }
 
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <div className="flex gap-6 shrink-0 grow-0">
+      <KanbanFilter/>
+      <button onPointerDown={(e) => e.stopPropagation()} onClick={() => openModal({ Component: DemoContent, componentProps: { message: 'Hello from modal', onAction: () => console.log('action inside modal'), onClose: closeModal } })} className="mb-2 px-3 py-1 bg-green-500 text-white rounded">Open Modal Demo (via root)</button>
+      <div className="flex gap-6 p-4 w-max overflow-x-scroll">
         {columns.map(column => (
           <KanbanColumn key={column.id} column={column}></KanbanColumn>
         ))}

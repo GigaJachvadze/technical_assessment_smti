@@ -3,7 +3,7 @@ import KanbanBoard from '@/ui/components/kanban/kanban'
 
 export default function Home() {
   return (
-    <div className='flex flex-col p-2 overflow-auto h-screen'>
+    <div className='flex flex-col overflow-x-auto h-screen'>
       <Header/>
       <KanbanBoard/>
     </div>

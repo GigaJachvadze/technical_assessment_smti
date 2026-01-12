@@ -1,7 +1,46 @@
-export default function Modal() {
-  return (
-    <div className="flex flex-col gap-2">
-        <h1>test</h1>
-    </div>
-  )
+"use client"
+
+import React, {useEffect} from 'react';
+import { createPortal } from 'react-dom';
+
+type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  Component?: React.ComponentType<any>;
+  componentProps?: Record<string, any>;
+  children?: React.ReactNode;
+  ariaLabel?: string;
+};
+
+export default function Modal({ isOpen, onClose, Component, componentProps, children, ariaLabel = 'Modal' }: ModalProps) {
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose();
+    }
+    if (isOpen) document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  // Render modal in a portal to body so it overlays everything
+  return typeof document !== 'undefined' ? createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div
+        className="fixed inset-0 bg-black/50"
+        onClick={onClose}
+        data-testid="modal-backdrop"
+      />
+      <div
+        role="dialog"
+        aria-label={ariaLabel}
+        aria-modal="true"
+        className="relative z-10 bg-white rounded shadow p-4 max-w-lg w-full"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {Component ? <Component {...componentProps} /> : children}
+      </div>
+    </div>,
+    document.body
+  ) : null;
 }

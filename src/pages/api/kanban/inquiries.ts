@@ -4,6 +4,7 @@ import { Low } from 'lowdb'
 import { JSONFile } from 'lowdb/node'
 import { KanbanDB } from './model'
 import path from 'path';
+import { getQueryParam } from '@/helper/queryParams';
 
 const file = path.join(process.cwd(), 'src', 'db', 'db.json');
 const db = new Low<KanbanDB>(new JSONFile<KanbanDB>(file), {columns: [], cards: []});
@@ -38,6 +39,3 @@ export default async function handler(
 
   return res.status(200).json(columnsWithCards)
 }
-
-const getQueryParam = (param?: string | string[]) =>
-  Array.isArray(param) ? param[0] : param;

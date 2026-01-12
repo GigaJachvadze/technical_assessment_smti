@@ -1,6 +1,6 @@
 import { useDraggable } from "@dnd-kit/core";
 import { kanbanCard } from "./model";
-import { formatDateShort } from "@/helper/dateFormat";
+import { formatDateShort, formatRelativeDate } from "@/helper/dateFormat";
 import { formatNumber } from "@/helper/numberFormat";
 
 type KanbanCardProps = {
@@ -20,7 +20,7 @@ export default function KanbanCard({card}: KanbanCardProps) {
             <span>{card.clientName}</span>
             <div className="flex gap-2 items-center">
                 <span className="material-symbols-outlined text-sm! text-[#617589]">Calendar_Today</span>
-                <span className="text-sm font-light">{formatDateShort(card.eventDate)}</span>
+                <span className="text-sm font-light">{formatRelativeDate(card.eventDate)}</span>
             </div>
             <div className="flex gap-2 items-center">
                 <span className="material-symbols-outlined text-sm! text-[#617589]">Diversity_3</span>
