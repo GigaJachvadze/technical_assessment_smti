@@ -35,7 +35,7 @@ export default function Modal({ isOpen, onClose, Component, componentProps, chil
         role="dialog"
         aria-label={ariaLabel}
         aria-modal="true"
-        className="relative z-10 bg-white rounded shadow p-4 max-w-lg w-full"
+        className="relative z-10 bg-[#1A242E] rounded-2xl shadow p-4 max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
       >
         {Component ? <Component {...componentProps} /> : children}

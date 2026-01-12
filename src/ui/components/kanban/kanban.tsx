@@ -99,8 +99,7 @@ export default function KanbanBoard() {
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <KanbanFilter/>
-      <button onPointerDown={(e) => e.stopPropagation()} onClick={() => openModal({ Component: DemoContent, componentProps: { message: 'Hello from modal', onAction: () => console.log('action inside modal'), onClose: closeModal } })} className="mb-2 px-3 py-1 bg-green-500 text-white rounded">Open Modal Demo (via root)</button>
-      <div className="flex gap-6 p-4 w-max overflow-x-scroll">
+      <div className="flex gap-6 p-4 w-max">
         {columns.map(column => (
           <KanbanColumn key={column.id} column={column}></KanbanColumn>
         ))}
