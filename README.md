@@ -46,3 +46,4 @@ Open http://localhost:3000 in your browser after the dev server starts.
 ## Notes
 
 - Timebox: This project was completed under 2 days. Decisions were influenced by that constraint: prioritize working functionality, clarity, and maintainability within the available time.
+- Because of the time constraint i was not able to make kanban columns dynamic so it is static just 4 columns.
