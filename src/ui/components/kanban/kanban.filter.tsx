@@ -81,15 +81,15 @@ export default function KanbanFilter() {
                 <div className="flex gap-4">
                     <button onClick={() => openModal({ Component: KanbanDateRangeFilter, componentProps: { onAction: handleDateRangeFilter, onClose: closeModal } })} className={`flex gap-2 items-center px-3 py-1 ${isDateActive ? 'bg-[#137FEC]' : 'bg-[#2D3A4A]'} rounded-2xl border border-[#193653] hover:bg-[#3A4A5C] cursor-pointer`}>
                         <span className="material-symbols-outlined text-[18px]!">Calendar_Today</span>
-                        <span className="text-white font-light">Date Range</span>
+                        <span className="text-white font-light text-xs">Date Range</span>
                     </button>
                     <button onClick={() => openModal({ Component: KanbanValueRangeFilter, componentProps: { onAction: handleValueRangeFilter, onClose: closeModal } })} className={`flex gap-2 items-center px-3 py-1 rounded-2xl ${isValueActive ? 'bg-[#137FEC]' : 'bg-[#2D3A4A]'}  border border-[#193653] hover:bg-[#3A4A5C] cursor-pointer`}>
                         <span className="material-symbols-outlined text-[18px]!">Payments</span>
-                        <span className="text-white font-light">Value Range</span>
+                        <span className="text-white font-light text-xs">Value Range</span>
                     </button>
                     <button onClick={handleFilterReset} className="flex gap-2 items-center px-3 py-1 bg-[#2D3A4A] rounded-2xl border border-[#193653] hover:bg-[#3A4A5C] cursor-pointer">
                         <span className="material-symbols-outlined text-[18px]!">filter_list</span>
-                        <span className="text-white font-light">Reset</span>
+                        <span className="text-white font-light text-xs">Reset</span>
                     </button>
                 </div>
             </div>
