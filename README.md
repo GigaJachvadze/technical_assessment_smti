@@ -43,4 +43,6 @@ Open http://localhost:3000 in your browser after the dev server starts.
 - `lowdb` — file-backed JSON DB used by API routes (dev/demo only)
 - `react-hot-toast` — lightweight toast notifications for success and error messages
 
-If you'd like a deployment section, linting/formatting commands, or an example of using the API endpoints, tell me which you'd prefer and I can append it.
+## Notes
+
+- Timebox: This project was completed under 2 days. Decisions were influenced by that constraint: prioritize working functionality, clarity, and maintainability within the available time.
