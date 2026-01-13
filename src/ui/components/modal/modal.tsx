@@ -23,7 +23,6 @@ export default function Modal({ isOpen, onClose, Component, componentProps, chil
 
   if (!isOpen) return null;
 
-  // Render modal in a portal to body so it overlays everything
   return typeof document !== 'undefined' ? createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div

@@ -6,7 +6,6 @@ import Modal from './modal'
 type OpenModalOptions = {
   Component?: React.ComponentType<any>;
   componentProps?: Record<string, any>;
-  children?: React.ReactNode;
 }
 
 type ModalContextValue = {
@@ -20,32 +19,23 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false)
   const [component, setComponent] = useState<React.ComponentType<any> | undefined>(undefined)
   const [componentProps, setComponentProps] = useState<Record<string, any> | undefined>(undefined)
-  const [childrenContent, setChildrenContent] = useState<ReactNode | undefined>(undefined)
-  const [ariaLabel, setAriaLabel] = useState<string | undefined>(undefined)
 
-  function openModal({ Component, componentProps, children }: OpenModalOptions) {
+  function openModal({ Component, componentProps }: OpenModalOptions) {
     setComponent(() => Component)
     setComponentProps(componentProps)
-    setChildrenContent(children)
     setIsOpen(true)
   }
 
   function closeModal() {
     setIsOpen(false)
-    // clear content after a short delay to allow exit animations if desired
-    setTimeout(() => {
-      setComponent(undefined)
-      setComponentProps(undefined)
-      setChildrenContent(undefined)
-    }, 300)
+    setComponent(undefined)
+    setComponentProps(undefined)
   }
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
-      <Modal isOpen={isOpen} onClose={closeModal} Component={component} componentProps={componentProps}>
-        {childrenContent}
-      </Modal>
+      <Modal isOpen={isOpen} onClose={closeModal} Component={component} componentProps={componentProps}></Modal>
     </ModalContext.Provider>
   )
 }

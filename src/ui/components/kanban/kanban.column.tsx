@@ -1,7 +1,6 @@
 import { formatNumber } from "@/helper/numberFormat";
 import KanbanCard from "./kanban.card";
 import { kanbanCard, kanbanColumn } from "./model";
-
 import { useDroppable } from '@dnd-kit/core';
 import { useModal } from "../modal/modal-context";
 import KanbanEditCard from "./kanban.editCard";
@@ -14,6 +13,12 @@ type KanbanColumnProps = {
 };
 
 export default function KanbanColumn({column, handleUpdateInquiry}: KanbanColumnProps) {
+    const {openModal, closeModal} = useModal();
+
+    const {setNodeRef} = useDroppable({
+        id: column.id,
+    });
+
     async function handleAddCard(card: kanbanCard) {
         const response = await fetch('/api/kanban/inquiries', {
             method: 'PUT',
@@ -26,17 +31,12 @@ export default function KanbanColumn({column, handleUpdateInquiry}: KanbanColumn
         if (!response.ok) {
             const errorBody = await response.json();
             toast.error(errorBody?.error || 'Failed to add card. Please try again.');
-        } else {
-            handleUpdateInquiry(await response.json(), true);
-            closeModal();
+            return;
         }
+        
+        handleUpdateInquiry(await response.json(), true);
+        closeModal();
     }
-
-    const {openModal, closeModal} = useModal();
-
-    const {setNodeRef} = useDroppable({
-        id: column.id,
-    });
     
     function emptyColumn() {
         return (<div className="text-center text-gray-400 italic flex flex-col gap-4 w-full h-full justify-center items-center opacity-50">

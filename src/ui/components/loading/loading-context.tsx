@@ -1,4 +1,3 @@
-// context/LoaderContext.tsx
 import { createContext, useContext, useState } from "react";
 
 type LoaderContextType = {

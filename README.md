@@ -1,48 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# technical_assessment_smti
 
-## Getting Started
+This is a small Next.js + TypeScript kanban demo used for a technical assessment. It demonstrates a client-side kanban board with drag-and-drop, URL-based filters, and a file-backed LowDB store used by API routes.
 
-First, run the development server:
+**Setup**
+
+Clone the repository and install dependencies, then run the dev server:
 
 ```bash
+git clone <repo-url>
+cd technical_assessment_smti
+
+# using npm
+npm install
 npm run dev
-# or
-yarn dev
-# or
+
+# or using pnpm
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser after the dev server starts.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+**Project structure (overview)**
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- `src/` — application source
+	- `pages/` — Next.js pages and API routes (see `pages/api/kanban/*`)
+	- `ui/` — UI components
+		- `components/kanban/` — kanban UI: `kanban.tsx`, `kanban.column.tsx`, `kanban.card.tsx`, `kanban.filter.tsx`, `model.ts`
+		- `modal/` — modal context + modal implementation used by filters
+	- `helper/` — small utilities (date/number formatting, `queryParams` helpers)
+	- `db/` — LowDB JSON files used by API routes (seed/test data)
+	- `styles/` — global CSS
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+**How filtering works**
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Filters (name, date range, value range) are stored in the browser URL query string (for example: `?name=acme&startDate=2026-01-01`).
+- The UI reads and updates query params via helpers in `src/helper/queryParams.ts`. When updating query params from a React component we pass the Next.js `router` into the helper so Next detects the change and components re-run data fetches.
 
-## Learn More
+**Libraries used**
 
-To learn more about Next.js, take a look at the following resources:
+- `Next.js` — React framework used for pages and API routes
+- `TypeScript` — static typing
+- `dnd-kit` — drag-and-drop for kanban cards
+- `lowdb` — file-backed JSON DB used by API routes (dev/demo only)
+- `react-hot-toast` — lightweight toast notifications
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
-
-
-
-## Libraries used
-
-dnd-kit --- for drag and drop functionality
-
-lowdb --- for backend database
+If you'd like a deployment section, linting/formatting commands, or an example of using the API endpoints, tell me which you'd prefer and I can append it.

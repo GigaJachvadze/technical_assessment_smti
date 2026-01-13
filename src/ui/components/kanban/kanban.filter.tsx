@@ -8,20 +8,13 @@ export default function KanbanFilter() {
 
     const { openModal, closeModal } = useModal();
 
-    // Name search state (client-only initial value)
     const [name, setName] = useState<string>(() => (typeof window !== 'undefined' ? (getQueryParam('name') ?? '') : ''));
     const debounceRef = useRef<number | null>(null);
 
-    // Determine whether date/value filters are active (client-only)
     const isDateActive = typeof window !== 'undefined' && (getQueryParam('startDate') || getQueryParam('endDate'));
     const isValueActive = typeof window !== 'undefined' && (getQueryParam('startValue') || getQueryParam('endValue'));
 
-    function handleNameFilter(value?: string) {
-        setName(value ?? '');
-    }
-
     useEffect(() => {
-        // Debounce updating the URL to avoid excessive history changes
         if (debounceRef.current) {
             clearTimeout(debounceRef.current);
         }
@@ -42,35 +35,33 @@ export default function KanbanFilter() {
         };
     }, [name]);
 
+    function handleNameFilter(value?: string) {
+        setName(value ?? '');
+    }
+
     function handleDateRangeFilter(startDate?: string, endDate?: string) {
         const params = getAllQueryParams();
 
-        // Update or remove the date params based on values passed from the modal
         if (startDate) params.startDate = startDate;
         else delete params.startDate;
 
         if (endDate) params.endDate = endDate;
         else delete params.endDate;
 
-        // Persist into the URL
         setAllQueryParams(params, { replace: true, router });
-
         closeModal();
     }
 
     function handleValueRangeFilter(startValue?: string, endValue?: string) {
         const params = getAllQueryParams();
 
-        // Update or remove the value params based on values passed from the modal
         if (startValue) params.startValue = startValue;
         else delete params.startValue;
 
         if (endValue) params.endValue = endValue;
         else delete params.endValue;
 
-        // Persist into the URL
         setAllQueryParams(params, { replace: true, router });
-
         closeModal();
     }
 
