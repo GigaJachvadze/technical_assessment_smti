@@ -39,10 +39,8 @@ Open http://localhost:3000 in your browser after the dev server starts.
 
 **Libraries used**
 
-- `Next.js` — React framework used for pages and API routes
-- `TypeScript` — static typing
 - `dnd-kit` — drag-and-drop for kanban cards
 - `lowdb` — file-backed JSON DB used by API routes (dev/demo only)
-- `react-hot-toast` — lightweight toast notifications
+- `react-hot-toast` — lightweight toast notifications for success and error messages
 
 If you'd like a deployment section, linting/formatting commands, or an example of using the API endpoints, tell me which you'd prefer and I can append it.
