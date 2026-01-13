@@ -38,6 +38,23 @@
       "notes": "Client prefers city center location",
       "createdAt": "2026-01-10T09:00:00Z",
       "updatedAt": "2026-01-12T14:30:00Z"
+    },
+    {
+      "id": "ERROR",
+      "clientName": "ERROR CARD",
+      "contactPerson": "ERROR",
+      "eventType": "Conference",
+      "eventDate": "2026-03-15",
+      "guestCount": 120,
+      "potentialValue": 65000,
+      "phase": "2",
+      "hotels": [
+        "Grand Hotel Zurich",
+        "Hotel Schweizerhof"
+      ],
+      "notes": "Client prefers city center location",
+      "createdAt": "2026-01-10T09:00:00Z",
+      "updatedAt": "2026-01-12T14:30:00Z"
     }
   ]
 }
