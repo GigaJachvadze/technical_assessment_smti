@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from 'next/router';
 import { getAllQueryParams, getQueryParam, setAllQueryParams } from "@/helper/queryParams";
 import { useModal } from "../modal/modal-context";
 
 export default function KanbanFilter() {
+    const router = useRouter();
+
     const { openModal, closeModal } = useModal();
 
     // Name search state (client-only initial value)
@@ -28,7 +31,7 @@ export default function KanbanFilter() {
             if (name && name.trim() !== '') params.name = name.trim();
             else delete params.name;
 
-            setAllQueryParams(params);
+            setAllQueryParams(params, { replace: true, router });
         }, 300);
 
         return () => {
@@ -50,7 +53,7 @@ export default function KanbanFilter() {
         else delete params.endDate;
 
         // Persist into the URL
-        setAllQueryParams(params);
+        setAllQueryParams(params, { replace: true, router });
 
         closeModal();
     }
@@ -66,21 +69,20 @@ export default function KanbanFilter() {
         else delete params.endValue;
 
         // Persist into the URL
-        setAllQueryParams(params);
+        setAllQueryParams(params, { replace: true, router });
 
         closeModal();
     }
 
     function handleFilterReset() {
-        // Clear all filter-related query params
-        setAllQueryParams({});
+        setAllQueryParams({}, { replace: true, router });
         setName('');
     }
 
     return (
         <>
             <div className="w-full h-25.5 inline-block clear-both box-content"></div>
-            <div className="fixed top-18 w-full flex flex-col gap-3 bg-[#1A242E] px-4 pb-4">
+            <div className="absolute z-10 top-18 w-full flex flex-col gap-3 bg-[#1A242E] px-4 pb-4">
                 <div className="relative">
                     <span className="absolute left-2 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#617589]">Search</span>
                     <input value={name} onChange={(e) => handleNameFilter(e.target.value)} className="pl-10 py-2 rounded-xl w-full bg-[#2D3A4A] outline-none font-thin" type="text" placeholder="Search Client Name..." />
@@ -113,9 +115,6 @@ function KanbanDateRangeFilter({ onAction, onClose }: kanbanDateRangeFilterProps
     const [startDate, setStartDate] = useState<string | null>(() => (typeof window !== 'undefined' ? (getQueryParam('startDate') ?? null) : null));
     const [endDate, setEndDate] = useState<string | null>(() => (typeof window !== 'undefined' ? (getQueryParam('endDate') ?? null) : null));
 
-    console.log('startDateParam', startDate);
-    console.log('endDateParam', endDate);
-
     return (
         <div className="flex flex-col gap-2 bg-[#1A242E] rounded-lg">
             <div>
@@ -144,8 +143,6 @@ function KanbanValueRangeFilter({ onAction, onClose }: kanbanValueRangeFilterPro
     const [startValue, setStartValue] = useState<string | null>(() => (typeof window !== 'undefined' ? (getQueryParam('startValue') ?? null) : null));
     const [endValue, setEndValue] = useState<string | null>(() => (typeof window !== 'undefined' ? (getQueryParam('endValue') ?? null) : null));
 
-    console.log('startValueParam', startValue);
-    console.log('endValueParam', endValue);
     return (
         <div className="flex flex-col gap-2 bg-[#1A242E] rounded-lg">
             <div>

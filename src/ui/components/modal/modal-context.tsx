@@ -7,7 +7,6 @@ type OpenModalOptions = {
   Component?: React.ComponentType<any>;
   componentProps?: Record<string, any>;
   children?: React.ReactNode;
-  ariaLabel?: string;
 }
 
 type ModalContextValue = {
@@ -24,11 +23,10 @@ export function ModalProvider({ children }: { children: ReactNode }) {
   const [childrenContent, setChildrenContent] = useState<ReactNode | undefined>(undefined)
   const [ariaLabel, setAriaLabel] = useState<string | undefined>(undefined)
 
-  function openModal({ Component, componentProps, children, ariaLabel }: OpenModalOptions) {
+  function openModal({ Component, componentProps, children }: OpenModalOptions) {
     setComponent(() => Component)
     setComponentProps(componentProps)
     setChildrenContent(children)
-    setAriaLabel(ariaLabel)
     setIsOpen(true)
   }
 
@@ -39,14 +37,13 @@ export function ModalProvider({ children }: { children: ReactNode }) {
       setComponent(undefined)
       setComponentProps(undefined)
       setChildrenContent(undefined)
-      setAriaLabel(undefined)
     }, 300)
   }
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
       {children}
-      <Modal isOpen={isOpen} onClose={closeModal} Component={component} componentProps={componentProps} ariaLabel={ariaLabel}>
+      <Modal isOpen={isOpen} onClose={closeModal} Component={component} componentProps={componentProps}>
         {childrenContent}
       </Modal>
     </ModalContext.Provider>

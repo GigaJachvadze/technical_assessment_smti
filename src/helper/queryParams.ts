@@ -45,21 +45,41 @@ export function getAllQueryParams(search?: string): QueryParams {
  * - `params` may contain string, number, boolean, or string[] values.
  * - By default this uses history.replaceState to avoid adding history entries;
  *   pass { replace: false } to push a new entry instead.
+ * - To ensure Next.js detects the change (so components update), pass a Router
+ *   instance via `options.router` and this will call `router.replace`/`router.push`.
  */
 export function setAllQueryParams(
     params: Record<string, string | number | boolean | string[] | null | undefined>,
-    options?: { replace?: boolean }
+    options?: { replace?: boolean; router?: import('next/router').NextRouter }
 ): void {
     if (typeof window === 'undefined') return;
 
+    // normalize to string or string[]
+    const queryObj: Record<string, string | string[]> = {};
+    for (const [key, raw] of Object.entries(params)) {
+        if (raw == null) continue;
+        if (Array.isArray(raw)) queryObj[key] = raw.map(v => String(v));
+        else queryObj[key] = String(raw);
+    }
+
+    // If a Next.js router is provided, use it so Next can detect query changes
+    if (options?.router) {
+        const { router } = options;
+        const method = (options?.replace ?? true) ? 'replace' : 'push';
+        // router.replace({ pathname: window.location.pathname, query: queryObj }, undefined, { shallow: true });
+        // Use the router method dynamically
+        (router as any)[method]({ pathname: window.location.pathname, query: queryObj }, undefined, { shallow: true });
+        return;
+    }
+
+    // Fallback: update history directly
     const sp = new URLSearchParams();
 
-    for (const [key, raw] of Object.entries(params)) {
-        if (raw == null) continue; // skip null/undefined
+    for (const [key, raw] of Object.entries(queryObj)) {
         if (Array.isArray(raw)) {
-            for (const v of raw) sp.append(key, String(v));
+            for (const v of raw) sp.append(key, v);
         } else {
-            sp.set(key, String(raw));
+            sp.set(key, raw);
         }
     }
 
@@ -80,7 +100,7 @@ export function setAllQueryParams(
 export function setQueryParam(
     key: string,
     value: string | number | boolean | string[] | null | undefined,
-    options?: { replace?: boolean }
+    options?: { replace?: boolean; router?: import('next/router').NextRouter }
 ): void {
     if (typeof window === 'undefined') return;
 

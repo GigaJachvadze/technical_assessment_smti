@@ -1,6 +1,6 @@
-import { kanbanColumn } from "@/ui/components/kanban/model";
+import { kanbanCard, kanbanColumn } from "@/ui/components/kanban/model";
 
 export interface KanbanDB {
   columns: kanbanColumn[];
-  cards: any[];
+  cards: kanbanCard[];
 }

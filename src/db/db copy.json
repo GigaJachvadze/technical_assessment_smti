@@ -1,41 +1,60 @@
 {
-    "columns": [
-        {
-            "id": "0",
-            "name": "New",
-            "cards": []
-        },
-        {
-            "id": "1",
-            "name": "Sent to Hotels",
-            "cards": []
-        },
-        {
-            "id": "2",
-            "name": "Offers Received",
-            "cards": []
-        },
-        {
-            "id": "3",
-            "name": "Completed",
-            "cards": []
-        }
-    ],
-    "cards": [
-        {
-            "id": "INQ-2026-0034",
-            "clientName": "Novartis AG",
-            "contactPerson": "Anna Mueller",
-            "eventType": "Conference",
-            "eventDate": "2026-03-15",
-            "guestCount": 120,
-            "potentialValue": 48500,
-            "phase": "offers_received",
-            "hotels": ["Grand Hotel Zurich", "Hotel Schweizerhof"],
-            "notes": "Client prefers city center location",
-            "createdAt": "2026-01-10T09:00:00Z",
-            "updatedAt": "2026-01-12T14:30:00Z",
-            "assignedColumn": "1"
-        }
-    ]
+  "columns": [
+    {
+      "id": "0",
+      "name": "New",
+      "cards": []
+    },
+    {
+      "id": "1",
+      "name": "Sent to Hotels",
+      "cards": []
+    },
+    {
+      "id": "2",
+      "name": "Offers Received",
+      "cards": []
+    },
+    {
+      "id": "3",
+      "name": "Completed",
+      "cards": []
+    }
+  ],
+  "cards": [
+    {
+      "id": "INQ-2026-0034",
+      "clientName": "Novartis AG",
+      "contactPerson": "Anna Mueller",
+      "eventType": "Conference",
+      "eventDate": "2026-03-15",
+      "guestCount": 120,
+      "potentialValue": 48500,
+      "phase": "2",
+      "hotels": [
+        "Grand Hotel Zurich",
+        "Hotel Schweizerhof"
+      ],
+      "notes": "Client prefers city center location",
+      "createdAt": "2026-01-10T09:00:00Z",
+      "updatedAt": "2026-01-12T14:30:00Z"
+    },
+    {
+      "id": "ERROR",
+      "clientName": "ERROR CARD",
+      "contactPerson": "ERROR",
+      "eventType": "Conference",
+      "eventDate": "2026-03-15",
+      "guestCount": 120,
+      "potentialValue": 65000,
+      "phase": "2",
+      "hotels": [
+        "Grand Hotel Zurich",
+        "Hotel Schweizerhof"
+      ],
+      "notes": "Client prefers city center location",
+      "createdAt": "2026-01-10T09:00:00Z",
+      "updatedAt": "2026-01-12T14:30:00Z"
+    }
+  ]
 }
